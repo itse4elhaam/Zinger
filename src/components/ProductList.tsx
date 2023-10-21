@@ -1,4 +1,7 @@
-import Image from "next/image"
+"use client"
+
+import storeFront from "../utils/getProducts";
+import { useEffect } from "react";
 
 const products = [
   {
@@ -37,6 +40,44 @@ const products = [
 ]
 
 export default function ProductList() {
+  
+  // const gql = string.raw;
+  const productsQuery = `query Products{
+    products(first:6){
+        edges{
+            node{
+                title,
+                handle,
+                priceRange{
+                    minVariantPrice{
+                        amount
+                    }
+                }
+                images(first:1){
+                    edges{
+                        node{
+                            transformedSrc
+                            altText
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }`;
+
+
+  useEffect(() => {
+		async function getProducts() {
+			const { data } = await storeFront(productsQuery);
+
+			console.log(data)
+		}
+		getProducts();
+
+  }, [productsQuery]);
+
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
