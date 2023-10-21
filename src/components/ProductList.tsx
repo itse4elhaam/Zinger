@@ -4,6 +4,7 @@ import extractData from "@/utils/extractData";
 import storeFront from "../utils/getProducts";
 import { extractedProduct } from "../utils/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductList() {
 	const [products, setProducts] = useState<extractedProduct[]>([]);
@@ -48,14 +49,14 @@ export default function ProductList() {
 
 				<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
 					{products.map((product) => (
-						<a key={product.Handle} href="#" className="group">
+						<Link key={product.Handle} href={`product/${product.Handle}`} className="group">
 							<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
 								<Image
 									src={product.ImageURL}
 									alt={product.AltText || ""}
 									className="h-full w-full object-cover object-center group-hover:opacity-75"
-                  width={1000}
-                  height={1000}
+									width={1000}
+									height={1000}
 								/>
 							</div>
 							<h3 className="mt-4 text-sm text-gray-700">
@@ -64,7 +65,7 @@ export default function ProductList() {
 							<p className="mt-1 text-lg font-medium text-gray-900">
 								{product.Price}
 							</p>
-						</a>
+						</Link>
 					))}
 				</div>
 			</div>
