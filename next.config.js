@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-        images: {
-        domains: ['"https://cdn.shopify.com/s/files/1/0553/9672/8890/products/'],
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'cdn.shopify.com',
+                port: '',
+                pathname: '/s/files/1/0553/9672/8890/products/**',
+            },
+        ],
     },
 }
 
